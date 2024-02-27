@@ -1,0 +1,99 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class ToDoListApp {
+    private static ArrayList<String> tasks = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        while (true) {
+            displayMenu();
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+
+            switch (choice) {
+                case 1:
+                    addTask();
+                    break;
+                case 2:
+                    markTaskAsCompleted();
+                    break;
+                case 3:
+                    removeTask();
+                    break;
+                case 4:
+                    viewTasks();
+                    break;
+                case 5:
+                    System.out.println("Exiting the application.");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    private static void displayMenu() {
+        System.out.println("------ To-Do List Application ------");
+        System.out.println("1. Add a new task");
+        System.out.println("2. Mark a task as completed");
+        System.out.println("3. Remove a task");
+        System.out.println("4. View tasks");
+        System.out.println("5. Exit");
+        System.out.print("Enter your choice: ");
+    }
+
+    private static void addTask() {
+        System.out.print("Enter the task: ");
+        String task = scanner.nextLine();
+        tasks.add(task);
+        System.out.println("Task added successfully.");
+    }
+
+    private static void markTaskAsCompleted() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks available.");
+            return;
+        }
+        System.out.println("Select the task to mark as completed:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+        int taskIndex = scanner.nextInt();
+        if (taskIndex >= 1 && taskIndex <= tasks.size()) {
+            tasks.remove(taskIndex - 1);
+            System.out.println("Task marked as completed.");
+        } else {
+            System.out.println("Invalid task index.");
+        }
+    }
+
+    private static void removeTask() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks available.");
+            return;
+        }
+        System.out.println("Select the task to remove:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+        int taskIndex = scanner.nextInt();
+        if (taskIndex >= 1 && taskIndex <= tasks.size()) {
+            tasks.remove(taskIndex - 1);
+            System.out.println("Task removed successfully.");
+        } else {
+            System.out.println("Invalid task index.");
+        }
+    }
+
+    private static void viewTasks() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks available.");
+        } else {
+            System.out.println("------ Tasks ------");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
+    }
+}
